@@ -32,15 +32,20 @@ export const site = {
   },
   email: "info@empero-servisi.com",
 
+  /**
+   * ADRES
+   * Sitede açık adres yayınlanmıyor; yerinde servis verildiği için
+   * hizmet bölgesi (İstanbul) yeterli. JSON-LD şemasına da yalnızca
+   * şehir/ülke bilgisi giriyor.
+   *
+   * İleride ofis/atölye adresi yayınlamak isterseniz buraya `street` ve
+   * `postalCode` alanlarını ekleyip lib/schema.ts içinde PostalAddress'e
+   * geçirmeniz yeterli.
+   */
   address: {
-    street: "Örnek Mah. Örnek Cad. No: 00",
-    district: "Ümraniye",
     city: "İstanbul",
     region: "İstanbul",
-    postalCode: "34000",
     country: "TR",
-    /** Google Haritalar için koordinat (yaklaşık) */
-    geo: { lat: 41.0255, lng: 29.1244 },
   },
 
   hours: {

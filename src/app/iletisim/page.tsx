@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContactForm } from "@/components/ContactForm";
 import { JsonLd } from "@/components/JsonLd";
@@ -100,14 +101,18 @@ export default function ContactPage() {
 
             <div className="rounded-xl border border-ink-200 bg-white p-5">
               <p className="text-xs font-semibold uppercase tracking-wider text-ink-400">
-                Adres
+                Servis bölgesi
               </p>
-              <address className="mt-2 text-sm not-italic leading-relaxed text-ink-700">
-                {site.address.street}
-                <br />
-                {site.address.postalCode} {site.address.district} /{" "}
-                {site.address.city}
-              </address>
+              <p className="mt-2 text-sm leading-relaxed text-ink-700">
+                İstanbul geneli — ağırlıklı olarak Avrupa Yakası. Cihazlara
+                mutfağınızda müdahale ediyoruz; atölyeye getirmenize gerek yok.
+              </p>
+              <Link
+                href="/bolgeler"
+                className="mt-3 inline-block text-sm font-semibold text-brand-600 hover:text-brand-700"
+              >
+                Servis bölgelerini görün →
+              </Link>
             </div>
 
             <div className="rounded-xl border border-ink-200 bg-ink-50 p-5">

@@ -31,18 +31,13 @@ export function organizationSchema() {
         priceRange: "₺₺",
         currenciesAccepted: "TRY",
         paymentAccepted: "Nakit, Kredi Kartı, Havale/EFT",
+        // Hizmet bölgesi işletmesi: açık adres yayınlanmıyor,
+        // yalnızca şehir/ülke bilgisi veriliyor.
         address: {
           "@type": "PostalAddress",
-          streetAddress: site.address.street,
-          addressLocality: site.address.district,
+          addressLocality: site.address.city,
           addressRegion: site.address.region,
-          postalCode: site.address.postalCode,
           addressCountry: site.address.country,
-        },
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: site.address.geo.lat,
-          longitude: site.address.geo.lng,
         },
         areaServed: {
           "@type": "City",
