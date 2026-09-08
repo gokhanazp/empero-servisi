@@ -8,7 +8,7 @@
 
 export const site = {
   /** Yayına alacağınız alan adı. Sonunda "/" OLMAYACAK. */
-  url: "https://www.emperoservisi.com",
+  url: "https://empero-servisi.com",
 
   /** Sitede ve şemalarda görünen işletme adı */
   name: "Empero Servisi",
@@ -30,7 +30,7 @@ export const site = {
     /** wa.me linki: başında + ve boşluk olmadan */
     href: "905331912478",
   },
-  email: "info@emperoservisi.com",
+  email: "info@empero-servisi.com",
 
   address: {
     street: "Örnek Mah. Örnek Cad. No: 00",
