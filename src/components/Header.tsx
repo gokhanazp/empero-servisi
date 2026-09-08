@@ -29,6 +29,21 @@ export function Header() {
     setOpen(false);
   }, [pathname]);
 
+  /**
+   * Mobil menüden bir sayfaya geçerken: menüyü kapat, gövde kilidini
+   * hemen kaldır ve sayfayı en üste al. Kilit açılmadan yapılan
+   * scroll-to-top işe yaramadığı için yeni sayfa ortadan başlıyordu.
+   */
+  function menuLinkTiklandi() {
+    // Kilit önce kalkmalı; kilitliyken yapılan scroll işlemi etkisiz kalıyor.
+    document.body.style.overflow = "";
+    setOpen(false);
+    window.scrollTo(0, 0);
+    // Yönlendirme tamamlandıktan sonra da en üste sabitle.
+    requestAnimationFrame(() => window.scrollTo(0, 0));
+    setTimeout(() => window.scrollTo(0, 0), 80);
+  }
+
   useEffect(() => {
     if (!overlay) {
       setScrolled(false);
@@ -170,14 +185,17 @@ export function Header() {
       {open && (
         <div
           id="mobil-menu"
-          className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-ink-100 bg-white lg:hidden"
+          // 100dvh: mobil tarayıcıların adres çubuğu payını hesaba katar,
+          // 100vh kullanıldığında panelin alt kısmı ekran dışında kalıyordu.
+          className="max-h-[calc(100dvh-4.25rem)] overflow-y-auto overscroll-contain border-t border-ink-100 bg-white lg:hidden"
         >
-          <nav aria-label="Mobil menü" className="mx-auto max-w-6xl px-4 py-4">
+          <nav aria-label="Mobil menü" className="mx-auto max-w-6xl px-4 pt-4">
             <ul className="space-y-1">
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
+                    onClick={menuLinkTiklandi}
                     className="block rounded-lg px-3 py-2.5 text-base font-medium text-ink-800 hover:bg-ink-50"
                   >
                     {item.label}
@@ -194,6 +212,7 @@ export function Header() {
                 <li key={s.slug}>
                   <Link
                     href={`/${s.slug}`}
+                    onClick={menuLinkTiklandi}
                     className="block rounded-lg px-3 py-2 text-sm text-ink-600 hover:bg-ink-50 hover:text-ink-900"
                   >
                     {s.name}
@@ -202,12 +221,23 @@ export function Header() {
               ))}
             </ul>
 
-            <a
-              href={telHref}
-              className="mt-5 flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-3 text-base font-semibold text-white"
-            >
-              {site.phone.display} — Hemen Ara
-            </a>
+            {/*
+              Ara butonu panelin altına yapışık duruyor. Liste uzasa da
+              her zaman ekranda kalıyor; alt boşluk mobildeki sabit
+              arama çubuğunun altında kalmasını engelliyor.
+            */}
+            <div className="sticky bottom-0 -mx-4 mt-5 border-t border-ink-100 bg-white px-4 pb-[calc(env(safe-area-inset-bottom)+4.5rem)] pt-3">
+              <a
+                href={telHref}
+                onClick={menuLinkTiklandi}
+                className="flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-3.5 text-base font-semibold text-white shadow-[0_8px_20px_-10px_rgba(209,18,26,0.9)]"
+              >
+                <svg viewBox="0 0 24 24" className="h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                {site.phone.display} — Hemen Ara
+              </a>
+            </div>
           </nav>
         </div>
       )}
