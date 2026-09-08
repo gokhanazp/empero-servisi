@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+/*
+  MARKA RENKLERİ
+  Empero logosundaki kırmızı ve siyah esas alınmıştır.
+  --brand      : ana kırmızı (butonlar, vurgular)
+  --ink        : metin siyahı
+*/
+@theme {
+  --color-brand-50: #fef2f2;
+  --color-brand-100: #fee2e2;
+  --color-brand-200: #fecaca;
+  --color-brand-300: #fca5a5;
+  --color-brand-400: #f26d70;
+  --color-brand-500: #e02b30;
+  --color-brand-600: #d1121a;
+  --color-brand-700: #af0f16;
+  --color-brand-800: #8c1015;
+  --color-brand-900: #741418;
+
+  --color-ink-50: #f7f7f7;
+  --color-ink-100: #ededed;
+  --color-ink-200: #dfdfdf;
+  --color-ink-300: #c8c8c8;
+  --color-ink-400: #9a9a9a;
+  --color-ink-500: #6f6f6f;
+  --color-ink-600: #4d4d4d;
+  --color-ink-700: #3a3a3a;
+  --color-ink-800: #232323;
+  --color-ink-900: #141414;
+  --color-ink-950: #0b0b0b;
+
+  /*
+    Sistem font yığını: dış kaynaktan font indirilmediği için sayfa
+    ilk boyamada hazır olur (LCP ve CLS için en iyi seçenek).
+    Google Fonts kullanmak isterseniz layout.tsx içinde next/font ile
+    ekleyip --font-sans başına değişkeni koymanız yeterli.
+  */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
+
+  --breakpoint-xs: 24rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink-800);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Uzun metinlerin okunabilirliği için tipografi yardımcıları */
+.prose-tr p {
+  margin-bottom: 1.05rem;
+  line-height: 1.85;
+  color: var(--color-ink-700);
+}
+
+.prose-tr p:last-child {
+  margin-bottom: 0;
+}
+
+/*
+  Premium dokunuşlar
+  ------------------
+  .grain      : koyu bölümlere çok hafif bir doku katar (düz his kırılır)
+  .card-lift  : kartların üzerine gelince yumuşak yükselme
+  .rule-brand : başlık altı kısa kırmızı çizgi
+*/
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* İç sayfaların koyu başlık bandı — ekstra DOM gerektirmez */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-ink-950);
+  background-image:
+    radial-gradient(
+      60rem 26rem at 12% -25%,
+      rgba(209, 18, 26, 0.3),
+      transparent 62%
+    ),
+    radial-gradient(
+      40rem 20rem at 95% 0%,
+      rgba(140, 16, 21, 0.28),
+      transparent 60%
+    );
+}
+
+.page-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card-lift {
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-3px);
+}
+
+/* Koyu bölümlerin altına yumuşak geçiş */
+.fade-bottom {
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+}
+
+/* Odak görünürlüğü — erişilebilirlik için gerekli */
+:where(a, button, input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--color-brand-600);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Baskı görünümü */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

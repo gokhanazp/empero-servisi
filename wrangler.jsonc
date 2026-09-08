@@ -1,0 +1,15 @@
+{
+  // Cloudflare Workers (Static Assets) ile yayınlamak için.
+  // Cloudflare Pages kullanıyorsanız bu dosyaya ihtiyacınız yok;
+  // panelden build komutu "npm run build", çıktı klasörü "out" demeniz yeterli.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "empero-servisi",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./out",
+    // /bolgeler/besiktas-empero-servisi  ->  out/bolgeler/besiktas-empero-servisi.html
+    "html_handling": "auto-trailing-slash",
+    // bulunmayan adreslerde kendi 404 sayfamız gösterilsin
+    "not_found_handling": "404-page"
+  }
+}

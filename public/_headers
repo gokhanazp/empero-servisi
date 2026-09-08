@@ -1,0 +1,30 @@
+# Cloudflare Pages / Workers başlık kuralları
+# Bu dosya build sırasında out/ klasörüne kopyalanır ve Cloudflare
+# tarafından otomatik okunur. Netlify de aynı formatı destekler.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# Ürün görselleri ve ikonlar — dosya adı değişmedikçe sonsuza kadar önbellek
+/gorseller/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+# Sitemap ve robots günlük tazelensin
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+
+/robots.txt
+  Cache-Control: public, max-age=3600
