@@ -21,14 +21,14 @@ export const site = {
   /** İLETİŞİM — kendi bilgilerinizle değiştirin */
   phone: {
     /** Ekranda görünen hâli */
-    display: "0533 191 24 78",
+    display: "0536 931 96 67",
     /** tel: linki için uluslararası format */
-    href: "+905331912478",
+    href: "+905369319667",
   },
   whatsapp: {
-    display: "0533 191 24 78",
+    display: "0536 931 96 67",
     /** wa.me linki: başında + ve boşluk olmadan */
-    href: "905331912478",
+    href: "905369319667",
   },
   email: "info@empero-servisi.com",
 
